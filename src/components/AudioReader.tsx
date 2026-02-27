@@ -1,6 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Play, Pause, Volume2, Loader2, AlertCircle, RotateCcw } from 'lucide-react';
-import { GoogleGenAI, Modality } from "@google/genai";
+import React, { useState, useRef, useEffect } from 'react';
+import { Play, Pause, Volume2, RotateCcw, Square } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface AudioReaderProps {
@@ -8,205 +7,163 @@ interface AudioReaderProps {
   title?: string;
 }
 
-// Função para criar um Blob WAV a partir de dados PCM puros
-const createWavBlob = (pcmData: Uint8Array, sampleRate: number = 24000): Blob => {
-  const header = new ArrayBuffer(44);
-  const view = new DataView(header);
+export const AudioReader: React.FC<AudioReaderProps> = ({ text }) => {
+  const [status, setStatus] = useState<'idle' | 'playing' | 'paused'>('idle');
+  const synth = useRef<SpeechSynthesis | null>(null);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
-  // RIFF identifier
-  view.setUint32(0, 0x52494646, false); // "RIFF"
-  // file length
-  view.setUint32(4, 36 + pcmData.length, true);
-  // RIFF type
-  view.setUint32(8, 0x57415645, false); // "WAVE"
-  // format chunk identifier
-  view.setUint32(12, 0x666d7420, false); // "fmt "
-  // format chunk length
-  view.setUint16(16, 16, true);
-  // sample format (1 = PCM)
-  view.setUint16(20, 1, true);
-  // channel count (1 = Mono)
-  view.setUint16(22, 1, true);
-  // sample rate
-  view.setUint32(24, sampleRate, true);
-  // byte rate (sample rate * block align)
-  view.setUint32(28, sampleRate * 2, true);
-  // block align (channel count * bytes per sample)
-  view.setUint16(32, 2, true);
-  // bits per sample
-  view.setUint16(34, 16, true);
-  // data chunk identifier
-  view.setUint32(36, 0x64617461, false); // "data"
-  // data chunk length
-  view.setUint32(40, pcmData.length, true);
-
-  return new Blob([header, pcmData], { type: 'audio/wav' });
-};
-
-export const AudioReader: React.FC<AudioReaderProps> = ({ text, title }) => {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'playing' | 'paused'>('idle');
-  const [chunks, setChunks] = useState<string[]>([]);
-  const [currentChunkIndex, setCurrentChunkIndex] = useState(0);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [isStopping, setIsStopping] = useState(false);
-
-  // Parar o áudio quando o componente for desmontado
-  React.useEffect(() => {
+  useEffect(() => {
+    synth.current = window.speechSynthesis;
+    
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
+      if (synth.current) {
+        synth.current.cancel();
       }
     };
   }, []);
 
-  const playChunk = async (index: number, textChunks: string[]) => {
-    if (index >= textChunks.length || isStopping) {
-      setStatus('idle');
-      setCurrentChunkIndex(0);
-      return;
-    }
-
-    setCurrentChunkIndex(index);
-    setStatus('playing');
-
-    try {
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
-      const ai = new GoogleGenAI({ apiKey });
-      
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash-preview-tts",
-        contents: [{ parts: [{ text: `Narração profissional: ${textChunks[index]}` }] }],
-        config: {
-          responseModalities: [Modality.AUDIO],
-          speechConfig: {
-            voiceConfig: {
-              prebuiltVoiceConfig: { voiceName: 'Kore' },
-            },
-          },
-        },
-      });
-
-      const base64Audio = response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
-      
-      if (base64Audio) {
-        const byteCharacters = atob(base64Audio);
-        const byteNumbers = new Array(byteCharacters.length);
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-        const audioBlob = createWavBlob(byteArray, 24000);
-        const url = URL.createObjectURL(audioBlob);
-        
-        const audio = new Audio(url);
-        audioRef.current = audio;
-        
-        audio.onended = () => {
-          URL.revokeObjectURL(url);
-          playChunk(index + 1, textChunks);
-        };
-
-        await audio.play();
-      }
-    } catch (error) {
-      if (error instanceof Error && error.name !== 'AbortError') {
-        console.error('Erro ao tocar chunk:', error);
-        setStatus('idle');
-      }
-    }
-  };
-
-  const handleToggle = async () => {
-    if (status === 'playing') {
-      audioRef.current?.pause();
-      setStatus('paused');
-      return;
-    }
-
-    if (status === 'paused') {
-      audioRef.current?.play();
-      setStatus('playing');
-      return;
-    }
-
-    // Iniciar nova narração
-    setIsStopping(false);
-    setStatus('loading');
-
-    // Limpeza e divisão do texto em chunks menores (aprox 500 caracteres ou por parágrafo)
-    const cleanText = text
+  const getCleanText = (rawText: string) => {
+    return rawText
       .replace(/#+\s/g, '')
       .replace(/(\*\*|__)(.*?)\1/g, '$2')
       .replace(/(\*|_)(.*?)\1/g, '$2')
       .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
       .replace(/`{1,3}.*?`{1,3}/gs, '')
-      .replace(/>\s/g, '');
+      .replace(/>\s/g, '')
+      .replace(/\n+/g, ' ')
+      .trim();
+  };
 
-    // Divide por parágrafos e filtra vazios
-    const textChunks = cleanText
-      .split(/\n\n|\n/)
-      .map(c => c.trim())
-      .filter(c => c.length > 5);
+  const selectVoice = () => {
+    if (!synth.current) return null;
+    const voices = synth.current.getVoices();
+    // Prefer pt-BR, then any pt, then default
+    return voices.find(v => v.lang === 'pt-BR') || 
+           voices.find(v => v.lang.startsWith('pt')) || 
+           null;
+  };
 
-    if (textChunks.length === 0) {
-      setStatus('idle');
+  const handlePlay = () => {
+    if (!synth.current) return;
+
+    // Se já estiver falando, não faz nada (segurança extra)
+    if (synth.current.speaking && status === 'playing') return;
+
+    // Se estiver pausado, resume
+    if (status === 'paused') {
+      synth.current.resume();
+      setStatus('playing');
       return;
     }
 
-    setChunks(textChunks);
-    playChunk(0, textChunks);
+    // Caso contrário, inicia do zero
+    synth.current.cancel();
+
+    const cleanText = getCleanText(text);
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    
+    const voice = selectVoice();
+    if (voice) utterance.voice = voice;
+    utterance.lang = 'pt-BR';
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+
+    utterance.onend = () => {
+      setStatus('idle');
+    };
+
+    utterance.onerror = () => {
+      setStatus('idle');
+    };
+
+    utteranceRef.current = utterance;
+    synth.current.speak(utterance);
+    setStatus('playing');
+  };
+
+  const handlePause = () => {
+    if (synth.current && synth.current.speaking) {
+      synth.current.pause();
+      setStatus('paused');
+    }
   };
 
   const handleStop = () => {
-    setIsStopping(true);
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current = null;
+    if (synth.current) {
+      synth.current.cancel();
+      setStatus('idle');
     }
-    setStatus('idle');
-    setCurrentChunkIndex(0);
+  };
+
+  const handleRestart = () => {
+    handleStop();
+    // Pequeno delay para garantir que o cancelamento foi processado
+    setTimeout(() => {
+      handlePlay();
+    }, 50);
   };
 
   return (
     <motion.div 
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex items-center gap-4 p-4 bg-primary/5 rounded-2xl border border-primary/10 mb-8"
+      className="flex flex-col md:flex-row items-center gap-4 p-4 bg-primary/5 rounded-2xl border border-primary/10 mb-8"
     >
-      <button
-        onClick={handleToggle}
-        disabled={status === 'loading'}
-        className="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full hover:scale-105 transition-transform disabled:opacity-50 shadow-lg"
-        aria-label={status === 'playing' ? 'Pausar leitura' : 'Ouvir este conteúdo'}
-      >
-        {status === 'loading' ? (
-          <Loader2 className="animate-spin" size={24} />
+      <div className="flex items-center gap-2">
+        {status === 'idle' ? (
+          <button
+            onClick={handlePlay}
+            className="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full hover:scale-105 transition-transform shadow-lg"
+            title="Ouvir este conteúdo"
+          >
+            <Play size={24} className="ml-1" />
+          </button>
         ) : status === 'playing' ? (
-          <Pause size={24} />
+          <button
+            onClick={handlePause}
+            className="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full hover:scale-105 transition-transform shadow-lg"
+            title="Pausar leitura"
+          >
+            <Pause size={24} />
+          </button>
         ) : (
-          <Play size={24} className="ml-1" />
+          <button
+            onClick={handlePlay}
+            className="w-12 h-12 flex items-center justify-center bg-emerald-500 text-white rounded-full hover:scale-105 transition-transform shadow-lg"
+            title="Retomar leitura"
+          >
+            <Play size={24} className="ml-1" />
+          </button>
         )}
-      </button>
 
-      {status !== 'idle' && (
-        <button
-          onClick={handleStop}
-          className="w-10 h-10 flex items-center justify-center bg-gray-200 text-gray-600 rounded-full hover:bg-red-100 hover:text-red-600 transition-colors"
-          title="Parar narração"
-        >
-          <RotateCcw size={18} />
-        </button>
-      )}
+        {status !== 'idle' && (
+          <>
+            <button
+              onClick={handleStop}
+              className="w-10 h-10 flex items-center justify-center bg-white text-gray-600 border border-gray-200 rounded-full hover:bg-red-50 hover:text-red-600 transition-colors shadow-sm"
+              title="Parar leitura"
+            >
+              <Square size={18} fill="currentColor" />
+            </button>
+            <button
+              onClick={handleRestart}
+              className="w-10 h-10 flex items-center justify-center bg-white text-gray-600 border border-gray-200 rounded-full hover:bg-primary/10 hover:text-primary transition-colors shadow-sm"
+              title="Reiniciar do começo"
+            >
+              <RotateCcw size={18} />
+            </button>
+          </>
+        )}
+      </div>
 
-      <div className="flex-1">
-        <p className="font-bold text-dark flex items-center gap-2 text-sm md:text-base">
+      <div className="flex-1 text-center md:text-left">
+        <p className="font-bold text-dark flex items-center justify-center md:justify-start gap-2 text-sm md:text-base">
           <Volume2 size={18} className="text-primary" />
-          {status === 'playing' ? `Ouvindo parte ${currentChunkIndex + 1} de ${chunks.length}` : status === 'loading' ? 'Preparando áudio...' : 'Ouvir este conteúdo'}
+          {status === 'playing' ? 'Lendo conteúdo...' : status === 'paused' ? 'Leitura pausada' : 'Ouvir este conteúdo'}
         </p>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-center md:justify-start gap-2">
           <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest font-bold">
-            Acessibilidade • Narração por IA
+            Acessibilidade • Web Speech API
           </p>
           {status === 'playing' && (
             <div className="flex gap-0.5">
@@ -222,12 +179,6 @@ export const AudioReader: React.FC<AudioReaderProps> = ({ text, title }) => {
           )}
         </div>
       </div>
-      {status === 'idle' && (
-        <div className="hidden md:flex items-center gap-1 text-gray-400 text-[10px]">
-          <AlertCircle size={12} />
-          <span>Beta</span>
-        </div>
-      )}
     </motion.div>
   );
 };
