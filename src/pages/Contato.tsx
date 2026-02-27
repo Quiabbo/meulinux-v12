@@ -79,17 +79,16 @@ export const Contato = () => {
     setStatus('sending');
     
     const formData = new FormData(e.currentTarget);
-    // Add the active tab info to the submission
-    formData.append('subject', activeTab === 'contato' ? 'Novo Contato - Meu Linux' : 'Sugestão de Distro - Meu Linux');
+    // Campos especiais do FormSubmit
+    formData.append('_subject', activeTab === 'contato' ? 'Novo Contato - Meu Linux' : 'Sugestão de Distro - Meu Linux');
+    formData.append('_template', 'table');
+    formData.append('_captcha', 'false');
 
-    const data = Object.fromEntries(formData.entries());
-    
     try {
-      const response = await fetch('https://formspree.io/filipi.hadji.dsg@gmail.com', { 
+      const response = await fetch('https://formsubmit.co/ajax/filipi.hadji.dsg@gmail.com', { 
         method: 'POST',
-        body: JSON.stringify(data),
+        body: formData,
         headers: {
-          'Content-Type': 'application/json',
           'Accept': 'application/json'
         }
       });

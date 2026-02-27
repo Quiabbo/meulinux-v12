@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowLeft, ArrowRight, Share2, ExternalLink, Calendar, Tag, User } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Share2, ExternalLink, Calendar, Tag, User, Volume2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { AudioReader } from '../components/AudioReader';
 import { AnimatedGrid } from '../components/AnimatedGrid';
 import { SEO } from '../components/SEO';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -332,6 +333,8 @@ export const Conteudo = () => {
                         </span>
                       </div>
                       
+                      <AudioReader title={selectedBlogPost.title} text={selectedBlogPost.content} />
+
                       <div>
                         <ReactMarkdown>{selectedBlogPost.content}</ReactMarkdown>
                       </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Download, Globe, Cpu, Box, HardDrive, Info, ArrowRight, Database, X } from 'lucide-react';
+import { Download, Globe, Cpu, Box, HardDrive, Info, ArrowRight, Database, X, Volume2 } from 'lucide-react';
+import { AudioReader } from '../components/AudioReader';
 import { useDistros } from '../hooks/useDistros';
 import { useLanguage } from '../contexts/LanguageContext';
 import { AnimatedGrid } from '../components/AnimatedGrid';
@@ -290,6 +291,12 @@ export const DistroDetail = () => {
                 <h2 id="distro-info-heading" className="text-2xl font-bold mb-6 flex items-center gap-2">
                   <Info className="text-primary" aria-hidden="true" /> {t.about} {distro.name}
                 </h2>
+
+                <AudioReader 
+                  title={distro.name} 
+                  text={`${translatedDistro.description}. Ambientes de desktop: ${distro.desktopEnvironments}. Principais características: ${distro.mainFeatures}. Gerenciador de pacotes: ${distro.packageManager}.`} 
+                />
+
                 <p className="text-lg text-gray-700 leading-relaxed mb-8 text-left">{translatedDistro.description}</p>
                 
                 <h3 className="text-xl font-bold mb-4">{t.desktopEnvironments}</h3>

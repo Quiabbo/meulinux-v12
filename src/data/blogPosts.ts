@@ -20,7 +20,7 @@ export const blogPosts: Record<string, BlogPost[]> = {
       category: 'Tecnologia / Privacidade / Web3',
       tags: ['nostr', 'rede social descentralizada', 'protocolo nostr', 'criptografia', 'bitcoin', 'privacidade online'],
       date: '27 de Fevereiro de 2026',
-      image: 'https://picsum.photos/seed/nostr/800/600',
+      image: 'https://meulinux.com.br/wp-content/uploads/2024/01/Nostr_final_d6rusg.png',
       content: `
 ## Introdução: Por que o Nostr importa agora?
 
@@ -288,7 +288,7 @@ Bem-vindo à internet da próxima geração.
       category: 'Linux / Segurança / Criptomoedas',
       tags: ['tails linux', 'criptomoedas seguras', 'bitcoin anonimo', 'segurança digital', 'carteira fria', 'opsec', 'electrum tails'],
       date: '27 de Fevereiro de 2026',
-      image: 'https://picsum.photos/seed/tails/800/600',
+      image: 'https://bitcoinblock.com.br/wp-content/uploads/2024/07/tails-5-0-privacy-issue.jpg',
       content: `
 ## Introdução: Por que o Tails e as Criptomoedas se encaixam perfeitamente?
 
@@ -633,7 +633,7 @@ Comece hoje: baixe o Tails, crie um pendrive de teste, e pratique os fluxos ante
       category: 'Linux / Segurança / Hacking Ético',
       tags: ['kali linux', 'hacking ético', 'pentesting', 'segurança da informação', 'metasploit', 'nmap', 'burpsuite', 'cibersegurança'],
       date: '27 de Fevereiro de 2026',
-      image: 'https://picsum.photos/seed/kali/800/600',
+      image: 'https://meulinux.com.br/wp-content/uploads/2023/11/Kali-1024x576.webp',
       content: `
 ## Introdução: O que é o Kali Linux e por que ele domina o mundo da segurança?
 
@@ -1135,7 +1135,7 @@ O Kali Linux é a sua plataforma de trabalho. Mas a ferramenta mais importante q
       category: 'Linux / Redes / Tutoriais',
       tags: ['descobrir ip linux', 'ip linux terminal', 'comando ip linux', 'ifconfig linux', 'ip address linux', 'ubuntu ip', 'fedora ip', 'arch linux ip', 'endereço ip terminal'],
       date: '27 de Fevereiro de 2026',
-      image: 'https://picsum.photos/seed/ip/800/600',
+      image: 'https://meulinux.com.br/wp-content/uploads/2023/12/ga-XncszFVfqhE-unsplash-1024x683.jpg',
       content: `
 ## Introdução: Por que o comando certo pode variar entre distros?
 
@@ -1574,7 +1574,7 @@ Esse raciocínio — entender a causa antes de buscar a solução — é o que d
       category: 'Linux / Privacidade / Redes',
       tags: ['vpn gratis linux', 'instalar vpn ubuntu', 'wireguard linux', 'openvpn linux', 'protonvpn linux', 'vpn terminal linux', 'configurar vpn linux', 'vpn gratuita'],
       date: '27 de Fevereiro de 2026',
-      image: 'https://picsum.photos/seed/vpn/800/600',
+      image: 'https://meulinux.com.br/wp-content/uploads/2024/09/best-free-vpns-for-android-featured-image-1024x512.webp',
       content: `
 ## Introdução: VPN no Linux — mais fácil do que parece, mais poderoso do que você imagina
 

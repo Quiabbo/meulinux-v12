@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { RefreshCw, Box, Settings, Terminal, CheckCircle2, Info, ArrowRight, Monitor, Cpu, HardDrive, User, Target, ChevronRight, RotateCcw, Shield, Layout, ShoppingBag } from 'lucide-react';
+import { RefreshCw, Box, Settings, Terminal, CheckCircle2, Info, ArrowRight, Monitor, Cpu, HardDrive, User, Target, ChevronRight, RotateCcw, Shield, Layout, ShoppingBag, Volume2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { AudioReader } from '../components/AudioReader';
 import { DonationSection } from '../components/DonationSection';
 import { SEO } from '../components/SEO';
 import { POST_INSTALL_DATA, PostInstallGuide } from '../data/postInstallData';
@@ -176,6 +177,12 @@ export const PosInstalacao = () => {
         {/* Header / Intro */}
         <div className="bg-primary/5 p-8 rounded-[6px] border border-primary/10">
           <h2 className="text-3xl font-display font-bold text-dark mb-4">Guia Pós-Instalação para {selectedDistro.nome}</h2>
+          
+          <AudioReader 
+            title={`Guia Pós-Instalação para ${selectedDistro.nome}`} 
+            text={`${t.intro_greeting.replace('{distro}', selectedDistro.nome)}. ${t.section1_title}: ${t.section1_desc.replace('{distro}', selectedDistro.nome)}. ${selectedDistro.explicacao_atualizacao}`} 
+          />
+
           <p className="text-gray-700 leading-relaxed text-lg">
             {t.intro_greeting.replace('{distro}', selectedDistro.nome)}
           </p>
