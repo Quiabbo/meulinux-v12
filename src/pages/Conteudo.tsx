@@ -250,6 +250,11 @@ export const Conteudo = () => {
                 <div className="p-8 md:p-12">
                   {selectedEssentialId && (
                     <>
+                      <AudioReader 
+                        title={contentData[selectedEssentialId].title} 
+                        text={`${contentData[selectedEssentialId].concept}. ${contentData[selectedEssentialId].sections.map(s => `${s.heading}. ${s.paragraphs.join(' ')}`).join(' ')}`} 
+                      />
+
                       <div className="bg-primary/5 border-l-4 border-primary p-6 mb-12 rounded-r-xl">
                         <h3 className="text-sm font-bold uppercase tracking-widest text-primary mb-2">{t.quick_concept}</h3>
                         <p className="text-lg text-dark leading-relaxed italic">

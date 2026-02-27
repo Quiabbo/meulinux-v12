@@ -101,20 +101,20 @@ export const contentTranslations: Record<string, Record<ContentSection, ContentD
         'Navegadores': [
           { name: 'Firefox', url: 'https://www.mozilla.org/firefox/', icon: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg' },
           { name: 'Chromium', url: 'https://www.chromium.org/getting-involved/download-chromium/', icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Chromium_11_Logo.svg' },
-          { name: 'Falkon', url: 'https://www.falkon.org/download/', icon: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Falkon_logo.svg' }
+          { name: 'Falkon', url: 'https://www.falkon.org/download/', icon: 'https://images.icon-icons.com/2552/PNG/512/falkon_browser_logo_icon_152993.png' }
         ],
         'Pacotes de escritório': [
-          { name: 'LibreOffice', url: 'https://www.libreoffice.org/download/download-libreoffice/', icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/LibreOffice_7.2_icon.svg' },
-          { name: 'OnlyOffice', url: 'https://www.onlyoffice.com/download.aspx', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/77/ONLYOFFICE_logo.svg' }
+          { name: 'LibreOffice', url: 'https://www.libreoffice.org/download/download-libreoffice/', icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMu5k78s6kMZWUEvHN9E9FY6i0tLfzoTO8fQ&s' },
+          { name: 'OnlyOffice', url: 'https://www.onlyoffice.com/download.aspx', icon: 'https://download.onlyoffice.com/assets/fb/fb_icon_325x325.jpg' }
         ],
         'Design gráfico': [
           { name: 'GIMP', url: 'https://www.gimp.org/downloads/', icon: 'https://upload.wikimedia.org/wikipedia/commons/4/45/The_GIMP_icon_-_gnome.svg' },
-          { name: 'Inkscape', url: 'https://inkscape.org/release/', icon: 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Inkscape_logo.svg' },
-          { name: 'Krita', url: 'https://krita.org/en/download/krita-desktop/', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/73/Krita-logo.svg' }
+          { name: 'Inkscape', url: 'https://inkscape.org/release/', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Inkscape_Logo.svg/1024px-Inkscape_Logo.svg.png' },
+          { name: 'Krita', url: 'https://krita.org/en/download/krita-desktop/', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/73/Calligrakrita-base.svg' }
         ],
         'Editor de vídeo': [
-          { name: 'Kdenlive', url: 'https://kdenlive.org/en/download/', icon: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Kdenlive_logo.svg' },
-          { name: 'Shotcut', url: 'https://shotcut.org/download/', icon: 'https://upload.wikimedia.org/wikipedia/commons/4/42/Shotcut_logo.svg' }
+          { name: 'Kdenlive', url: 'https://kdenlive.org/en/download/', icon: 'https://i0.wp.com/www.ubuntudocs.com/wp-content/uploads/2019/03/Kdenlive.png' },
+          { name: 'Shotcut', url: 'https://shotcut.org/download/', icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeML_vtXykiGV6o66OwcqRrtzbpcKkd2wJFw&s' }
         ],
         'Editor de texto': [
           { name: 'Vim', url: 'https://www.vim.org/download.php', icon: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Vimlogo.svg' },
@@ -236,20 +236,20 @@ export const contentTranslations: Record<string, Record<ContentSection, ContentD
         'Browsers': [
           { name: 'Firefox', url: 'https://www.mozilla.org/firefox/', icon: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg' },
           { name: 'Chromium', url: 'https://www.chromium.org/getting-involved/download-chromium/', icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Chromium_11_Logo.svg' },
-          { name: 'Falkon', url: 'https://www.falkon.org/download/', icon: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Falkon_logo.svg' }
+          { name: 'Falkon', url: 'https://www.falkon.org/download/', icon: 'https://images.icon-icons.com/2552/PNG/512/falkon_browser_logo_icon_152993.png' }
         ],
         'Office Suites': [
-          { name: 'LibreOffice', url: 'https://www.libreoffice.org/download/download-libreoffice/', icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/LibreOffice_7.2_icon.svg' },
-          { name: 'OnlyOffice', url: 'https://www.onlyoffice.com/download.aspx', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/77/ONLYOFFICE_logo.svg' }
+          { name: 'LibreOffice', url: 'https://www.libreoffice.org/download/download-libreoffice/', icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMu5k78s6kMZWUEvHN9E9FY6i0tLfzoTO8fQ&s' },
+          { name: 'OnlyOffice', url: 'https://www.onlyoffice.com/download.aspx', icon: 'https://download.onlyoffice.com/assets/fb/fb_icon_325x325.jpg' }
         ],
         'Graphic Design': [
           { name: 'GIMP', url: 'https://www.gimp.org/downloads/', icon: 'https://upload.wikimedia.org/wikipedia/commons/4/45/The_GIMP_icon_-_gnome.svg' },
-          { name: 'Inkscape', url: 'https://inkscape.org/release/', icon: 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Inkscape_logo.svg' },
-          { name: 'Krita', url: 'https://krita.org/en/download/krita-desktop/', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/73/Krita-logo.svg' }
+          { name: 'Inkscape', url: 'https://inkscape.org/release/', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Inkscape_Logo.svg/1024px-Inkscape_Logo.svg.png' },
+          { name: 'Krita', url: 'https://krita.org/en/download/krita-desktop/', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/73/Calligrakrita-base.svg' }
         ],
         'Video Editors': [
-          { name: 'Kdenlive', url: 'https://kdenlive.org/en/download/', icon: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Kdenlive_logo.svg' },
-          { name: 'Shotcut', url: 'https://shotcut.org/download/', icon: 'https://upload.wikimedia.org/wikipedia/commons/4/42/Shotcut_logo.svg' }
+          { name: 'Kdenlive', url: 'https://kdenlive.org/en/download/', icon: 'https://i0.wp.com/www.ubuntudocs.com/wp-content/uploads/2019/03/Kdenlive.png' },
+          { name: 'Shotcut', url: 'https://shotcut.org/download/', icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeML_vtXykiGV6o66OwcqRrtzbpcKkd2wJFw&s' }
         ],
         'Text Editors': [
           { name: 'Vim', url: 'https://www.vim.org/download.php', icon: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Vimlogo.svg' },
@@ -371,20 +371,20 @@ export const contentTranslations: Record<string, Record<ContentSection, ContentD
         'Navegadores': [
           { name: 'Firefox', url: 'https://www.mozilla.org/firefox/', icon: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg' },
           { name: 'Chromium', url: 'https://www.chromium.org/getting-involved/download-chromium/', icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Chromium_11_Logo.svg' },
-          { name: 'Falkon', url: 'https://www.falkon.org/download/', icon: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Falkon_logo.svg' }
+          { name: 'Falkon', url: 'https://www.falkon.org/download/', icon: 'https://images.icon-icons.com/2552/PNG/512/falkon_browser_logo_icon_152993.png' }
         ],
         'Paquetes de oficina': [
-          { name: 'LibreOffice', url: 'https://www.libreoffice.org/download/download-libreoffice/', icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/LibreOffice_7.2_icon.svg' },
-          { name: 'OnlyOffice', url: 'https://www.onlyoffice.com/download.aspx', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/77/ONLYOFFICE_logo.svg' }
+          { name: 'LibreOffice', url: 'https://www.libreoffice.org/download/download-libreoffice/', icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMu5k78s6kMZWUEvHN9E9FY6i0tLfzoTO8fQ&s' },
+          { name: 'OnlyOffice', url: 'https://www.onlyoffice.com/download.aspx', icon: 'https://download.onlyoffice.com/assets/fb/fb_icon_325x325.jpg' }
         ],
         'Diseño gráfico': [
           { name: 'GIMP', url: 'https://www.gimp.org/downloads/', icon: 'https://upload.wikimedia.org/wikipedia/commons/4/45/The_GIMP_icon_-_gnome.svg' },
-          { name: 'Inkscape', url: 'https://inkscape.org/release/', icon: 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Inkscape_logo.svg' },
-          { name: 'Krita', url: 'https://krita.org/en/download/krita-desktop/', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/73/Krita-logo.svg' }
+          { name: 'Inkscape', url: 'https://inkscape.org/release/', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Inkscape_Logo.svg/1024px-Inkscape_Logo.svg.png' },
+          { name: 'Krita', url: 'https://krita.org/en/download/krita-desktop/', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/73/Calligrakrita-base.svg' }
         ],
         'Editores de video': [
-          { name: 'Kdenlive', url: 'https://kdenlive.org/en/download/', icon: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Kdenlive_logo.svg' },
-          { name: 'Shotcut', url: 'https://shotcut.org/download/', icon: 'https://upload.wikimedia.org/wikipedia/commons/4/42/Shotcut_logo.svg' }
+          { name: 'Kdenlive', url: 'https://kdenlive.org/en/download/', icon: 'https://i0.wp.com/www.ubuntudocs.com/wp-content/uploads/2019/03/Kdenlive.png' },
+          { name: 'Shotcut', url: 'https://shotcut.org/download/', icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeML_vtXykiGV6o66OwcqRrtzbpcKkd2wJFw&s' }
         ],
         'Editores de texto': [
           { name: 'Vim', url: 'https://www.vim.org/download.php', icon: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Vimlogo.svg' },
