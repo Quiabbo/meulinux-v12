@@ -82,14 +82,14 @@ export const Contato = () => {
     // Add the active tab info to the submission
     formData.append('subject', activeTab === 'contato' ? 'Novo Contato - Meu Linux' : 'Sugestão de Distro - Meu Linux');
 
+    const data = Object.fromEntries(formData.entries());
+    
     try {
-      const response = await fetch('https://formspree.io/f/filipi.hadji.dsg@gmail.com', { 
-        // Note: Formspree works best with a form ID, but can use email if configured.
-        // For this implementation, we'll use the email directly as requested, 
-        // but Formspree might require the user to confirm the first submission.
+      const response = await fetch('https://formspree.io/filipi.hadji.dsg@gmail.com', { 
         method: 'POST',
-        body: formData,
+        body: JSON.stringify(data),
         headers: {
+          'Content-Type': 'application/json',
           'Accept': 'application/json'
         }
       });
